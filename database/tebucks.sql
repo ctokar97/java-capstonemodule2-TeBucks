@@ -9,7 +9,7 @@ CREATE TABLE users (
 	first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(50),
-	role varchar(20) NOT NULL,
+	role varchar(20) DEFAULT ('User'),
 	CONSTRAINT pk_users PRIMARY KEY (user_id),
 	CONSTRAINT uq_username UNIQUE (username)
 );
@@ -33,7 +33,7 @@ CREATE TABLE transfers(
     CONSTRAINT pk_transfer_id PRIMARY KEY (transfer_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) references users (user_id),
     CONSTRAINT chk_transfer_status CHECK (transfer_status = 'Pending' OR  transfer_Status = 'Rejected' OR  transfer_status = 'Approved'),
-    CONSTRAINT chk_transfer_status CHECK (transfer_type = 'Send' OR transfer_type = 'Request')
+    CONSTRAINT chk_transfer_type CHECK (transfer_type = 'Send' OR transfer_type = 'Request')
 );
 
 COMMIT TRANSACTION;

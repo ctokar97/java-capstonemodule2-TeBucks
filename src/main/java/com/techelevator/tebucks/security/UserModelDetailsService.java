@@ -19,7 +19,7 @@ import java.util.Set;
 /**
  * Authenticate a user from the database.
  */
-@Component("userDetai lsService")
+@Component("userDetails Service")
 public class UserModelDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(UserModelDetailsService.class);
