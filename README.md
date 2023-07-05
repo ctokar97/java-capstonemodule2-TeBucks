@@ -97,7 +97,7 @@ spring.datasource.password=postgres1
 
 ### JdbcTemplate
 
-If you look in `/src/main/java/com/techelevator/tebucks/dao`, you'll see `JdbcUserDao`. This is an example of how to get an instance of `JdbcTemplate` in your DAOs. If you declare a field of type `JdbcTemplate` and add it as an argument to the constructor, Spring automatically injects an instance for you:
+If you look in `/src/main/java/com/techelevator/tebucks/security/dao`, you'll see `JdbcUserDao`. This is an example of how to get an instance of `JdbcTemplate` in your DAOs. If you declare a field of type `JdbcTemplate` and add it as an argument to the constructor, Spring automatically injects an instance for you:
 
 ```java
 @Component
