@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.text.DecimalFormat;
 
-public class Transaction {
+public class Transfer {
     @NotBlank
     private int transferId;
     @NotBlank
@@ -22,7 +22,7 @@ public class Transaction {
 
     private static DecimalFormat decimalTo100th = new DecimalFormat("0.00");
 
-    public Transaction(){    }
+    public Transfer(){    }
 
     public int getTransferId() {
         return transferId;
