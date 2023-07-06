@@ -19,15 +19,18 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 public class AccountController {
 
-    @Autowired
+
     private AccountDao accountDao;
 
-    @Autowired
     private TransferDao transferDao;
 
+    @Autowired
+    public AccountController(AccountDao accountDao, TransferDao transferDao) {
+        this.accountDao = accountDao;
+        this.transferDao = transferDao;
+    }
 
-
-///////////////////////////////incomplete/////////////////////////////////////////////////
+    ///////////////////////////////incomplete/////////////////////////////////////////////////
     @GetMapping(path = "/api/account/balance")
     public Account getBalance(Principal principal){
 
