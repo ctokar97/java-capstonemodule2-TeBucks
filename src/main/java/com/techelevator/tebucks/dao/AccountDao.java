@@ -9,9 +9,11 @@ public interface AccountDao {
 
         Account createAccount(int userId);
 
+        Account getAccountByUserName(String username);
+
         Account getAccountByUserId(int userId);
 
-        Account updateAccount(int accountId);
+        Account updateAccount(double newBalance, int accountId);
 
         double getBalanceByAccountId(int accountId);
 
