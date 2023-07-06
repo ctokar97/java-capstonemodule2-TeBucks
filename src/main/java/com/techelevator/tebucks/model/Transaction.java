@@ -20,7 +20,6 @@ public class Transaction {
     @NotBlank
     private int userId;
 
-    private static DecimalFormat decimalTo100th = new DecimalFormat("0.00");
 
     public Transaction(){    }
 
