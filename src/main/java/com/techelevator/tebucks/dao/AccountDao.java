@@ -1,15 +1,17 @@
 package com.techelevator.tebucks.dao;
 
+import com.techelevator.tebucks.model.Account;
+import com.techelevator.tebucks.model.Transfer;
+
+import java.util.List;
+
 public interface AccountDao {
-    private final double STARTING_BALANCE = 1000.00;
 
-    Account makeNewAccount(){
+        Account makeNewAccount(int accountId, int userId);
 
+        double getBalanceByAccountId(int accountId);
 
-//
-//    }
-
-//    public List<Transfer> get
+        public List<Transfer> getTransfers(int accountId);
 
 
 
