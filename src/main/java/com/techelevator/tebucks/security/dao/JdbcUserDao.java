@@ -10,6 +10,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class JdbcUserDao implements UserDao {
 
@@ -31,6 +34,20 @@ public class JdbcUserDao implements UserDao {
             throw new DaoException("Unable to connect to server or database", e);
         }
         return user;
+    }
+//get back all users
+    @Override
+    public List<User> getAllUsers() {
+       List<User> users = new ArrayList<>();
+       String sql = "SELECT user_id, username, password_hash from users WHERE user_id = ?;";
+
+       SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+       while(results.next()){
+           User user = mapRowToUser(results);
+           users.add(user);
+       }
+
+        return users;
     }
 
     @Override
@@ -73,6 +90,33 @@ public class JdbcUserDao implements UserDao {
             throw new DaoException("Data integrity violation", e);
         }
     }
+    //All users Except current to be able to see who to send money to
+    @Override
+    public List<User> allUsersButCurrent(String username) {
+       List<User> users = new ArrayList<>();
+       User id = findByUsername(username);
+       String sql = "SELECT user_id, username, password_hash FROM users Where user_id != ?;";
+       SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+       while (results.next()){
+           User user = mapRowToUser(results);
+           users.add(user);
+       }
+        return users;
+    }
+    //helper method to help get all users but current
+    @Override
+    public User findByUsername(String username) {
+        if (username == null) throw new IllegalArgumentException("User cannot be null");
+
+        String sql = "Select user_id, username, password_hash from users Where username = ?;";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
+        if (rowSet.next()){
+            return mapRowToUser(rowSet);
+        }
+        return null;//Throw an exception here?
+    }
+
+
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
