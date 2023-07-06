@@ -13,7 +13,7 @@ List<Transfer> getTransferLists (int userId);
 //Added int userId to make easier access to call userDao to get username
 
 int createTransfer (Transfer newTransfer);
-//COME BACK!!!!!//make seperate create for request?
+
 
 boolean updateTransfer(Transfer newTransfer);
 //changed to boolean just to show changes
