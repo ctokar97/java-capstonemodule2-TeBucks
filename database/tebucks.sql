@@ -6,8 +6,8 @@ CREATE TABLE users (
 	user_id serial NOT NULL,
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
-	first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+	first_name VARCHAR(50),
+    last_name VARCHAR(50),
     email VARCHAR(50),
 	role varchar(20) DEFAULT ('User'),
 	CONSTRAINT pk_users PRIMARY KEY (user_id),
@@ -17,7 +17,7 @@ CREATE TABLE users (
 CREATE TABLE accounts(
     account_id serial NOT NULL,
     user_id INTEGER NOT NULL,
-    balance DECIMAL(12, 2) NOT NULL,
+    balance DECIMAL(12, 2) DEFAULT(1000.00),
     CONSTRAINT pk_accounts PRIMARY KEY (account_id),
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
