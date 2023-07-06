@@ -37,9 +37,4 @@ public class AccountController {
         return new Account();
     }
 
-    @GetMapping(path = "api/account/transfers")
-    public List<Transfer> getMyTransfers(Principal principal){
-        List<Transfer> transfers = new ArrayList<>();//getTransfers(Principal principal){
-        return transfers;
-    }
 }

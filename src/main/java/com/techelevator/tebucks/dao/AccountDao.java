@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface AccountDao {
 
-        Account makeNewAccount(int accountId, int userId);
+        Account createAccount(int userId);
+
+        Account getAccountByUserId(int userId);
+
+        Account updateAccount(int accountId);
 
         double getBalanceByAccountId(int accountId);
-
-        public List<Transfer> getTransfers(int accountId);
 
 
 
