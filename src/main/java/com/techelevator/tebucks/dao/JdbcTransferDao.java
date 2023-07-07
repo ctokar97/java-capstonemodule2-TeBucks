@@ -52,7 +52,7 @@ public class JdbcTransferDao implements TransferDao {
         return transfers;
     }
 
-    public int createTransfer(Transfer newTransfer){
+    public Transfer createTransfer(Transfer newTransfer){
        String sql = "INSERT INTO transfers (transfer_id, transfer_type, transfer_status, user_from, user_to, amount)" +
                "values (DEFAULT, ?, ?, ?, ?, ?) RETURNING transfer_id;";
        int transferId;
@@ -62,8 +62,8 @@ public class JdbcTransferDao implements TransferDao {
            throw new NullPointerException("Unable to create new transfer");
        }
 
-        return transferId;
-    }//call get transferById
+        return getTransferbyId(transferId);
+    }
 
     public boolean updateTransfer(Transfer newTransfer){
       String sql = "Update transfers Set transfer_status = ? WHERE transfer_id = ?;";
