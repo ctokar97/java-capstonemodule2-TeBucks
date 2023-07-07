@@ -58,6 +58,7 @@ public class AuthenticationController {
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public User register(@Valid @RequestBody RegisterUserDto newUser) {
         return userDao.createUser(newUser);
+        //
     }
 
 }
