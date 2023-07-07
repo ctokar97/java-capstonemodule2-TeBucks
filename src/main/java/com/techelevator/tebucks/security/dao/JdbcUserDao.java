@@ -75,8 +75,8 @@ public class JdbcUserDao implements UserDao {
             Integer newUserId = jdbcTemplate.queryForObject(sql, int.class,
                     user.getUsername(),
                     passwordHash,
-                    user.getFirstName(),
-                    user.getLastName(),
+                    user.getFirstname(),
+                    user.getLastname(),
                     user.getEmail());
 
             if (newUserId == null) {
