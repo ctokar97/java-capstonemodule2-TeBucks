@@ -39,13 +39,5 @@ public class UserController {
         return userDao.allUsersButCurrent(principal.getName());
     }
 
-/** This should not be needed. */
-//    @PutMapping(path = "/api/users")
-//    public User addUser(RegisterUserDto registerUserDto){
-//
-//        Account newAccount = accountDao.createAccount(userDao.getUserByUsername(registerUserDto.getUsername()).getId());
-//return null;
-//    }
-
 
 }

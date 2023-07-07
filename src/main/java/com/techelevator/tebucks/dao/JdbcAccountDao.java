@@ -19,7 +19,6 @@ public class JdbcAccountDao implements AccountDao {
 
 
 
-    /**HEEEEELLLLLLLPPPPPP jk but something is wrong but my eyes are cross*/
     @Override
     public Account createAccount(int userId) {
         Account newAccount = null;

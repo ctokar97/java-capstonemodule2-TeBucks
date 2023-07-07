@@ -17,6 +17,4 @@ public interface AccountDao {
 
         double getBalanceByAccountId(int accountId);
 
-
-
 }
