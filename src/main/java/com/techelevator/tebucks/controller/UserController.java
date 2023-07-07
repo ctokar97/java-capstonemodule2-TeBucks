@@ -31,6 +31,7 @@ public class UserController {
     public UserController(UserDao userDao, AccountDao accountDao, TransferDao transferDao){
         this.userDao = userDao;
         this.transferDao = transferDao;
+        this.accountDao = accountDao;
     }
 
     @GetMapping(path = "/api/users")
@@ -47,6 +48,7 @@ public class UserController {
     @PutMapping(path = "/api/users")
     public User addUser(RegisterUserDto registerUserDto){
         accountDao.createAccount(userDao.getUserByUsername(registerUserDto.getUsername()).getId());
+        return null;
     }
 
 
