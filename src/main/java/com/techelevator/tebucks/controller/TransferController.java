@@ -4,6 +4,7 @@ import com.techelevator.tebucks.dao.AccountDao;
 import com.techelevator.tebucks.dao.TransferDao;
 import com.techelevator.tebucks.model.Transfer;
 import com.techelevator.tebucks.security.dao.UserDao;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -31,10 +32,16 @@ public class TransferController {
 //    @PostMapping(path = "api/transfers")
 //
 //    @PutMapping(path = "/api/transfers/{id}/status")
-    @GetMapping(path = "api/account/transfers")
-    public List<Transfer> getMyTransfers(Principal principal) {
-        List<Transfer> transfers = new ArrayList<>();          //getTransfers(Principal principal){
-        return transfers;
+//    @GetMapping(path = "api/account/transfers")
+//    public List<Transfer> getMyTransfers(Principal principal) {
+//        List<Transfer> transfers = new ArrayList<>();          //getTransfers(Principal principal){
+//        return transfers;
+//    }
+
+    @ResponseStatus (HttpStatus.OK)
+    @GetMapping(path = "/api/account/transfers")
+    public List<Transfer> getAllTransfers(Principal principal){
+        return transferDao.getTransferLists(userDao.findByUsername(principal.getName()).getId()); //Getting all transfers by user
     }
 
     @GetMapping(path = "api/transfers/{id}")
