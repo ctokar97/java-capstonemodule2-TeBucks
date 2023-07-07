@@ -12,7 +12,7 @@ Transfer getTransferbyId(int transferId);
 List<Transfer> getTransferLists (int userId);
 //Added int userId to make easier access to call userDao to get username
 
-int createTransfer (Transfer newTransfer);
+Transfer createTransfer (Transfer newTransfer);
 
 
 boolean updateTransfer(Transfer newTransfer);
