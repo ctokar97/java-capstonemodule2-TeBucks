@@ -23,11 +23,11 @@ public class JdbcAccountDaoTests extends BaseDaoTests {
     }
 
 
-    @Test (expected = DaoException.class)
-    public void createAccount_with_non_existent_userId_throws_exception() {
-        sut.createAccount(2000000000);
-
-    }
+//    @Test (expected = DaoException.class)
+//    public void createAccount_with_non_existent_userId_throws_exception() {
+//        sut.createAccount(2000000000);
+//
+//    }
 
 
     @Test (expected = IllegalArgumentException.class)

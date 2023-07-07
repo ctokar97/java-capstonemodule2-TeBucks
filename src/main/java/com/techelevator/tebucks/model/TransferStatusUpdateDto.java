@@ -1,4 +1,4 @@
-package com.techelevator.tebucks.security.model;
+package com.techelevator.tebucks.model;
 
 public class TransferStatusUpdateDto {
     private String transferStatus;
