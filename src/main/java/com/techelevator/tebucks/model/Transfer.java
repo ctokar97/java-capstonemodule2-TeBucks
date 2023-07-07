@@ -23,6 +23,16 @@ public class Transfer {
 
     public Transfer(){    }
 
+    public Transfer(int transferId, String transferType, String transferStatus, int userFrom, int userTo, double amount, int userId) {
+        this.transferId = transferId;
+        this.transferType = transferType;
+        this.transferStatus = transferStatus;
+        this.userFrom = userFrom;
+        this.userTo = userTo;
+        this.amount = amount;
+        this.userId = userId;
+    }
+
     public int getTransferId() {
         return transferId;
     }

@@ -9,7 +9,7 @@ CREATE TABLE users (
 	first_name VARCHAR(50),
     last_name VARCHAR(50),
     email VARCHAR(50),
-	role varchar(20) DEFAULT ('User'),
+	role varchar(20),
 	CONSTRAINT pk_users PRIMARY KEY (user_id),
 	CONSTRAINT uq_username UNIQUE (username)
 );

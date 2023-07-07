@@ -11,6 +11,19 @@ public class Account {
     @Positive
     private double balance;
 
+    public Account(){    };
+
+    public Account(int accountId, int userId){
+        this.userId = userId;
+    }
+
+    public Account(int accountId, int userId, double balance) {
+        this.accountId = accountId;
+        this.userId = userId;
+        this.balance = balance;
+    }
+
+
     public int getAccountId() {
         return accountId;
     }
