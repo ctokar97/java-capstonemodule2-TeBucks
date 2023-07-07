@@ -2,6 +2,7 @@ package com.techelevator.tebucks.controller;
 
 import com.techelevator.tebucks.dao.AccountDao;
 import com.techelevator.tebucks.dao.TransferDao;
+import com.techelevator.tebucks.model.Account;
 import com.techelevator.tebucks.model.Transfer;
 import com.techelevator.tebucks.dao.AccountDao;
 import com.techelevator.tebucks.security.dao.UserDao;
@@ -38,16 +39,12 @@ public class UserController {
         return userDao.allUsersButCurrent(principal.getName());
     }
 
-    @ResponseStatus (HttpStatus.OK)
-    @GetMapping(path = "/api/account/transfers")
-    public List<Transfer> getAllTransfers(Principal principal){
-        return transferDao.getTransferLists(userDao.findByUsername(principal.getName()).getId()); //Getting all transfers by user
-    }
 
     @PutMapping(path = "/api/users")
     public User addUser(RegisterUserDto registerUserDto){
-        accountDao.createAccount(userDao.getUserByUsername(registerUserDto.getUsername()).getId());
-        return null;
+
+        Account newAccount = accountDao.createAccount(userDao.getUserByUsername(registerUserDto.getUsername()).getId());
+return null;
     }
 
 
