@@ -1,6 +1,8 @@
 package com.techelevator.tebucks.security.controller;
 
+import com.techelevator.tebucks.dao.AccountDao;
 import com.techelevator.tebucks.exception.DaoException;
+import com.techelevator.tebucks.model.Account;
 import com.techelevator.tebucks.security.dao.UserDao;
 import com.techelevator.tebucks.security.jwt.TokenProvider;
 import com.techelevator.tebucks.security.model.*;
@@ -26,10 +28,13 @@ public class AuthenticationController {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    public AuthenticationController(UserDao userDao, TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    private final AccountDao accountDao;
+
+    public AuthenticationController(UserDao userDao, TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, AccountDao accountDao) {
         this.userDao = userDao;
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.accountDao = accountDao;
     }
 
     @PostMapping("/login")
@@ -57,8 +62,9 @@ public class AuthenticationController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public User register(@Valid @RequestBody RegisterUserDto newUser) {
-        return userDao.createUser(newUser);
-        //
+        User user =  userDao.createUser(newUser);
+        Account newAccount = accountDao.createAccount(userDao.getUserByUsername(newUser.getUsername()).getId());
+        return user;
     }
 
 }
