@@ -37,6 +37,9 @@ public class AccountController {
         String userName = principal.getName();
         User user = userDao.getUserByUsername(userName);
         return accountDao.getAccountByUserId(user.getId());
+
+
+
     }
 
 }
