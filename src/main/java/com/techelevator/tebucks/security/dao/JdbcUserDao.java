@@ -39,14 +39,16 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<User> getAllUsers() {
        List<User> users = new ArrayList<>();
-       String sql = "SELECT user_id, username, password_hash from users WHERE user_id = ?;";
-
+       String sql = "SELECT * from users;";
+        try{
        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-       while(results.next()){
-           User user = mapRowToUser(results);
-           users.add(user);
-       }
-
+           while(results.next()){
+               User user = mapRowToUser(results);
+               users.add(user);
+           }
+        } catch (CannotGetJdbcConnectionException e){
+            throw new DaoException("Unable to connect to the database", e);
+        }
         return users;
     }
 
@@ -95,7 +97,7 @@ public class JdbcUserDao implements UserDao {
     public List<User> allUsersButCurrent(String username) {
        List<User> users = new ArrayList<>();
        User id = findByUsername(username);
-       String sql = "SELECT user_id, username, password_hash FROM users Where user_id != ?;";
+       String sql = "SELECT * FROM users Where user_id != ?;";
        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
        while (results.next()){
            User user = mapRowToUser(results);
@@ -108,7 +110,7 @@ public class JdbcUserDao implements UserDao {
     public User findByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("User cannot be null");
 
-        String sql = "Select user_id, username, password_hash from users Where username = ?;";
+        String sql = "Select * from users Where username = ?;";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
         if (rowSet.next()){
             return mapRowToUser(rowSet);

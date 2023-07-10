@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,9 +37,21 @@ public class UserController {
     }
 
     @GetMapping(path = "/api/users")
-        public List<User> getAllUsers(Principal principal){ //ability to access users except current user so current user can send money
-        return userDao.allUsersButCurrent(principal.getName());
-    }
+        public List<User> getAllUsers(Principal principal){
+        List<User> allUsers = userDao.getAllUsers();
+        if (allUsers == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Users could not be found");
+        }
+        List<User> users = new ArrayList<>();
+        for (User user : allUsers){
+            if (!(user.getUsername().equals(principal.getName()))){
+                users.add(user);
+            }
+        }
+        return users;
+    }//ability to access users except current user so current user can send money
+//        return userDao.allUsersButCurrent(principal.getName());
+//    }
 
 
 }

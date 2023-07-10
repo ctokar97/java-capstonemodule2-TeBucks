@@ -1,4 +1,4 @@
-package com.techelevator.tebucks.security.model;
+package com.techelevator.tebucks.teBucksClient;
 //Created to help to call for logging
 public class TxLogDto {
     private String description;
@@ -6,6 +6,8 @@ public class TxLogDto {
 
     private String username_to;
     private double amount;
+
+    public TxLogDto(){};
 
     public String getDescription() {
         return description;

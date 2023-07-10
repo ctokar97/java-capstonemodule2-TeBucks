@@ -26,6 +26,7 @@ public class JdbcTransferDao implements TransferDao {
     }
 
 
+    @Override
     public Transfer getTransferbyId(int transferId){
     Transfer transfer = null;
      String sql = "SELECT * FROM transfers where transfer_id = ?;";
@@ -40,6 +41,7 @@ public class JdbcTransferDao implements TransferDao {
      return transfer;
     }
 
+    @Override
     public List<Transfer> getTransferLists(int userId){
         String username = userDao.getUserById(userId).getUsername();
         List<Transfer> transfers = new ArrayList<>();
@@ -52,19 +54,21 @@ public class JdbcTransferDao implements TransferDao {
         return transfers;
     }
 
+    @Override
     public Transfer createTransfer(Transfer newTransfer){
-       String sql = "INSERT INTO transfers (transfer_id, transfer_type, transfer_status, user_from, user_to, amount)" +
-               "values (DEFAULT, ?, ?, ?, ?, ?) RETURNING transfer_id;";
+        Transfer newtransfer = null;
+       String sql = "INSERT INTO transfers (transfer_type, transfer_status, user_from, user_to, amount)" +
+               "values (?, ?, ?, ?, ?) RETURNING transfer_id;";
        int transferId;
        try{
            transferId = jdbcTemplate.queryForObject(sql, int.class, newTransfer.getTransferType(), newTransfer.getTransferStatus(), newTransfer.getUserFrom(), newTransfer.getUserTo(), newTransfer.getAmount());
        }catch(DataAccessException | NullPointerException e){
            throw new NullPointerException("Unable to create new transfer");
        }
-
         return getTransferbyId(transferId);
     }
 
+    @Override
     public boolean updateTransfer(Transfer newTransfer){
       String sql = "Update transfers Set transfer_status = ? WHERE transfer_id = ?;";
         return jdbcTemplate.update(sql, newTransfer.getTransferStatus(), newTransfer.getTransferId()) == 1;

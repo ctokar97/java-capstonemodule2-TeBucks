@@ -2,6 +2,7 @@ package com.techelevator.tebucks.dao;
 
 import com.techelevator.tebucks.exception.DaoException;
 import com.techelevator.tebucks.model.Account;
+import com.techelevator.tebucks.model.NewTransferDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,8 +23,8 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Account createAccount(int userId) {
         Account newAccount = null;
-        String sql = "INSERT INTO accounts (account_id, user_id, balance) VALUES (default, ?, default) RETURNING account_id;";
-        String secondSql = "SELECT * FROM accounts WHERE account_id = ?;";
+        String sql = "INSERT INTO accounts (account_id, user_id, balance) VALUES (default, ?, default) RETURNING user_id;";
+        String secondSql = "SELECT * FROM accounts WHERE user_id = ?;";
         try{
             int accountId = jdbcTemplate.queryForObject(sql, int.class, userId);
             if (accountId > 0){
@@ -78,7 +79,7 @@ public class JdbcAccountDao implements AccountDao {
 
 
     @Override
-    public Account updateAccount(double newBalance, int accountId) {
+    public Account updateAccountBalance(double newBalance, int accountId) {
         Account account = null;
         String sql = "UPDATE accounts SET balance = ? WHERE account_id = ?;";
         try{
@@ -92,22 +93,20 @@ public class JdbcAccountDao implements AccountDao {
         return account;
     }
 
-    @Override
-    public double getBalanceByAccountId(int accountId) {
-        if (accountId < 1) throw new IllegalArgumentException(("Account Id must be valid"));
-        double balance = -1.00;
-        String sql = "SELECT balance FROM accounts WHERE account_id = ?;";
-        try{
-            balance = jdbcTemplate.queryForObject(sql, double.class, accountId);
-            if (balance >= 0){
-                return balance;
-            }
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        }
-        if (balance < 0) throw new DaoException("Account Id must be valid");
-        return balance;
-    }
+//    @Override
+//    public boolean updateAccountBalance(double newBalance, int accountId) {
+//        Account account = null;
+//        String sql = "UPDATE accounts SET balance = ? WHERE account_id = ?;";
+//        try{
+//            int rowsAffected = jdbcTemplate.update(sql, newBalance, accountId);
+//            if (rowsAffected == 1){
+//                return true;
+//            }
+//        } catch (CannotGetJdbcConnectionException e){
+//            throw new DaoException("Unable to connect to server or database", e);
+//        }
+//        return false;
+//    }
 
     private Account mapRowToAccount(SqlRowSet rs){
         Account account = new Account();
@@ -119,3 +118,28 @@ public class JdbcAccountDao implements AccountDao {
 }
 
 
+
+
+
+
+
+
+
+
+
+//    @Override
+//    public double getBalanceByAccountId(int accountId) {
+//        if (accountId < 1) throw new IllegalArgumentException(("Account Id must be valid"));
+//        double balance = -1.00;
+//        String sql = "SELECT balance FROM accounts WHERE account_id = ?;";
+//        try{
+//            balance = jdbcTemplate.queryForObject(sql, double.class, accountId);
+//            if (balance >= 0){
+//                return balance;
+//            }
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to server or database", e);
+//        }
+//        if (balance < 0) throw new DaoException("Account Id must be valid");
+//        return balance;
+//    }

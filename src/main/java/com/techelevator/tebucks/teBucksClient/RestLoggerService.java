@@ -1,7 +1,5 @@
-package com.techelevator.tebucks.service;
+package com.techelevator.tebucks.teBucksClient;
 
-import com.techelevator.tebucks.model.Transfer;
-import com.techelevator.tebucks.security.model.TxLogDto;
 import org.springframework.web.client.RestTemplate;
 
 public class RestLoggerService {
